@@ -1,0 +1,56 @@
+<%-include('header')-%>
+  <div class="text-center center-div " id=LOGIN">
+    <div class="main-container container w-25 border shadow-lg py-4 back-white">
+      <div class="title pb-6">
+        <h2 class="font-weight-bold">LOGIN SYSTEM </h2>
+      </div>
+      <form action="/route/login" method="POST" class="pt-3">
+        <div class="form-group text-start ">
+          <label class="email-input text" for="exampleInputEmail1">Enter Email Address</label>
+          <input class="form-control" name="email" id="email1" aria-label=     "email" onchange="validateEmail()">
+          <span class="span-text text-center" id="email" style="color: red">
+            <% if(locals.invalidEmail){%>
+              <%= invalidEmail %>
+                <%}%> 
+          </span>
+          
+        </div>
+        <div class="form-group text-start">
+          <label class="pass-input text" for="exampleInputPassword1">Enter Your Password</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1" aria-label ="Password">
+          <span class="span-text" style="color: red;">
+            <% if(locals.invalidPassword){%>
+              <%= invalidPassword %>
+                <%}%>
+          </span>
+
+        </div>
+        <button type="submit" class="btn btn-primary login-btn mt-3 rounded-pill" style="color:black;">submit</button>
+      </form>
+    </div>
+  </div>
+  <%-include('footer')-%>
+    <script>
+      var emailError = document.getElementById("email");
+      var submitError = document.getElementById("submit-error");
+
+      function validateEmail() {
+        var email1 = document.getElementById("email1").value;
+        if (email1.length == 0) {
+          emailError.innerHTML = "Email is required";
+          return false;
+        }
+        var emailParts = email1.split('.');
+        if (emailParts.length < 2 || emailParts[emailParts.length - 1].length < 2) {
+          emailError.innerHTML = "Email is invalid";
+          return false;
+        }
+        if (email1.indexOf('@') === -1 || email1.indexOf('.') === -1) {
+          emailError.innerHTML = "Email is invalid";
+          return false;
+        }
+        emailError.innerHTML = "";
+        return true;
+      }
+    </script>
+
